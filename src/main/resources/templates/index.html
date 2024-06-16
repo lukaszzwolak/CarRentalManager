@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome to My Application</title>
+    <title>Car Rental Manager</title>
+    <script src="app.js"></script>
 </head>
 <body>
-<div align="center">
-    <h1>Welcome to my application!</h1>
-    <h2><a href="/users">Manage Users</a></h2>
-</div>
+<h1>Car Rental Manager</h1>
+<h2>Vehicles</h2>
+<button onclick="loadVehicles()">Load Vehicles</button>
+<ul id="vehicleList"></ul>
+
+<h2>Add Vehicle</h2>
+<form id="addVehicleForm">
+    <label for="make">Make:</label>
+    <input type="text" id="make" name="make"><br><br>
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model"><br><br>
+    <label for="licensePlate">License Plate:</label>
+    <input type="text" id="licensePlate" name="licensePlate"><br><br>
+    <button type="button" onclick="addVehicle()">Add Vehicle</button>
+</form>
 </body>
 </html>
