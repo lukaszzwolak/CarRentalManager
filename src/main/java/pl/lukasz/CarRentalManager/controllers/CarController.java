@@ -1,60 +1,49 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.lukasz.CarRentalManager.entities.Car;
+import pl.lukasz.CarRentalManager.entities.*;
 import pl.lukasz.CarRentalManager.services.CarService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/cars")
 public class CarController {
     //wstrzykiwanie instancji carservice
     @Autowired
     private CarService carService;
-    //uzywanie carService wo wywolania encji Car zamiast bezpośrednio wywoływać metody repozytorium
-    @GetMapping
+
+    @GetMapping("/car")
     public List<Car> getAllCars() {
         return carService.getAllCars();
     }
-
     // Get car by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Car> getCarById(@PathVariable Long id) {
-        Car car = carService.getCarById(id);
-        return car != null ? ResponseEntity.ok(car) : ResponseEntity.notFound().build();
+    @GetMapping("/car/{id}")
+    public String getCarById(@PathVariable Long id) {
+        return carService.getCarById(id).toString();
     }
 
     // Create a new car
-    @PostMapping
-    public Car createCar(@RequestBody Car car) {
-        return carService.saveCar(car);
+    @PostMapping("/car/{model}")
+    public String createCar(@RequestBody String model) {
+        Car car = new Car();
+        car.setModel(model);
+        carService.saveCar(car);
+        return "to jest dodane auto" + car.getId();
     }
 
     // Update a car
-    @PutMapping("/{id}")
-    public ResponseEntity<Car> updateCar(@PathVariable Long id, @RequestBody Car carDetails) {
+    @PutMapping("/car/{id}/{name}")
+    public String updateCar(@PathVariable Long id, @RequestBody String model) {
         Car car = carService.getCarById(id);
-        if (car != null) {
-            car.setModel(carDetails.getModel());
-            Car updatedCar = carService.saveCar(car);
-            return ResponseEntity.ok(updatedCar);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        car.setModel(model);
+        return car.toString();
     }
 
     // Delete a car
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
+    @DeleteMapping("/car/delete/{id}")
+    public void deleteCar(@PathVariable Long id) {
         Car car = carService.getCarById(id);
-        if (car != null) {
-            carService.deleteCar(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        carService.deleteCar(id);
     }
 }

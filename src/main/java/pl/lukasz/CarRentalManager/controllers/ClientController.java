@@ -9,13 +9,13 @@ import pl.lukasz.CarRentalManager.services.ClientService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/client")
 public class ClientController {
 
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<Client> getAllClients() {
         return clientService.getAllClients();
     }
@@ -28,14 +28,14 @@ public class ClientController {
     }
 
     // Create a new client
-    @PostMapping
+    @PostMapping("/add/{name}")
     public ResponseEntity<Client> createClient(@RequestBody Client client) {
         clientService.saveClient(client);
         return ResponseEntity.ok(client);
     }
 
     // Update a client
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}/{name}")
     public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client clientDetails) {
         Client client = clientService.getClientById(id);
         if (client != null) {
@@ -47,7 +47,7 @@ public class ClientController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client != null) {

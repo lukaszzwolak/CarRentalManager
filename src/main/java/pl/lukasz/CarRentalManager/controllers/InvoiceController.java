@@ -36,7 +36,7 @@ public class InvoiceController {
     }
 
     // Update an invoice
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoiceDetails) {
         Invoice invoice = invoiceService.getInvoiceById(id);
         if (invoice != null) {
@@ -51,7 +51,7 @@ public class InvoiceController {
     }
 
     // Delete an invoice
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
         Invoice invoice = invoiceService.getInvoiceById(id);
         if (invoice != null) {
