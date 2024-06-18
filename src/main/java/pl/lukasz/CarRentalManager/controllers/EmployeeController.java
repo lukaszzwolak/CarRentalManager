@@ -1,7 +1,6 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukasz.CarRentalManager.entities.Employee;
@@ -10,38 +9,42 @@ import pl.lukasz.CarRentalManager.services.EmployeeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     // Get employee by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+    public ResponseEntity<Employee> getClientById(@PathVariable Long id) {
         Employee employee = employeeService.getEmployeeById(id);
-        return employee != null ? ResponseEntity.ok(employee) : ResponseEntity.notFound().build();
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Create a new employee
-    @PostMapping("/add/{name}")
+    @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        employeeService.saveEmployee(employee);
-        return ResponseEntity.ok(employee);
+        Employee savedEmployee = employeeService.saveEmployee(employee);
+        return ResponseEntity.ok(savedEmployee);
     }
 
     // Update an employee
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
-        Employee employee = employeeService.getEmployeeById(id);
-        if (employee != null) {
-            employee.setNameEmployee(employeeDetails.getNameEmployee());
-            employeeService.saveEmployee(employee);
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        Employee existingemployee = employeeService.getEmployeeById(id);
+        if (existingemployee != null) {
+            existingemployee.setNameEmployee(employee.getNameEmployee());
+            Employee updatedEmployee = employeeService.saveEmployee(existingemployee);
             return ResponseEntity.ok(employee);
         } else {
             return ResponseEntity.notFound().build();
@@ -49,7 +52,7 @@ public class EmployeeController {
     }
 
     // Delete an employee
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         Employee employee = employeeService.getEmployeeById(id);
         if (employee != null) {

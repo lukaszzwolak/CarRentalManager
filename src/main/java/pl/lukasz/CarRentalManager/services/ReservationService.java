@@ -21,8 +21,8 @@ public class ReservationService {
         return reservationRepository.findById(id).orElse(null);
     }
 
-    public void saveReservation(Reservation reservation) {
-        reservationRepository.save(reservation);
+    public Reservation saveReservation(Reservation reservation) {
+        return reservationRepository.save(reservation);
     }
 
     public void deleteReservationById(Long id) {

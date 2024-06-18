@@ -9,7 +9,7 @@ import pl.lukasz.CarRentalManager.services.InvoiceService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("/invoice")
 public class InvoiceController {
 
     @Autowired
@@ -25,36 +25,40 @@ public class InvoiceController {
     @GetMapping("/{id}")
     public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
         Invoice invoice = invoiceService.getInvoiceById(id);
-        return invoice != null ? ResponseEntity.ok(invoice) : ResponseEntity.notFound().build();
-    }
-
-    // Create a new invoice
-    @PostMapping
-    public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice) {
-        invoiceService.saveInvoice(invoice);
-        return ResponseEntity.ok(invoice);
-    }
-
-    // Update an invoice
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoiceDetails) {
-        Invoice invoice = invoiceService.getInvoiceById(id);
         if (invoice != null) {
-            invoice.setClient(invoiceDetails.getClient());
-            invoice.setCar(invoiceDetails.getCar());
-            invoice.setAmount(invoiceDetails.getAmount());
-            invoiceService.saveInvoice(invoice);
             return ResponseEntity.ok(invoice);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    // Create a new invoice
+    @PostMapping
+    public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice) {
+        Invoice savedInvoice = invoiceService.saveInvoice(invoice);
+        return ResponseEntity.ok(savedInvoice);
+    }
+
+    // Update an invoice
+    @PutMapping("/{id}")
+    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoice) {
+        Invoice existingInvoice = invoiceService.getInvoiceById(id);
+        if (existingInvoice != null) {
+            existingInvoice.setClient(invoice.getClient());
+            existingInvoice.setCar(invoice.getCar());
+            existingInvoice.setAmount(invoice.getAmount());
+            Invoice updatedInvoice = invoiceService.saveInvoice(existingInvoice);
+            return ResponseEntity.ok(updatedInvoice);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     // Delete an invoice
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
-        Invoice invoice = invoiceService.getInvoiceById(id);
-        if (invoice != null) {
+        Invoice existingInvoice = invoiceService.getInvoiceById(id);
+        if (existingInvoice != null) {
             invoiceService.deleteInvoiceById(id);
             return ResponseEntity.noContent().build();
         } else {

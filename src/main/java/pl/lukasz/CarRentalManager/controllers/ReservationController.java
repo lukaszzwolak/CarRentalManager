@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     @Autowired
@@ -23,33 +23,35 @@ public class ReservationController {
     }
 
     // Get reservation by ID
-    @GetMapping("/{id}")
+    @GetMapping
     public ResponseEntity<Reservation> getReservationById(@PathVariable Long id) {
         Reservation reservation = reservationService.getReservationById(id);
-        return reservation != null ? ResponseEntity.ok(reservation) : ResponseEntity.notFound().build();
+        if (reservation == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(reservation);
     }
 
     // Create a new reservation
     @PostMapping
     public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        reservationService.saveReservation(reservation);
-        return ResponseEntity.ok(reservation);
+        Reservation savedReservation = reservationService.saveReservation(reservation);
+        return ResponseEntity.ok(savedReservation);
     }
 
     // Update a reservation
     @PutMapping("/{id}")
-    public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody Reservation reservationDetails) {
-        Reservation reservation = reservationService.getReservationById(id);
-        if (reservation != null) {
-            reservation.setClient(reservationDetails.getClient());
-            reservation.setCar(reservationDetails.getCar());
-            reservation.setStartDate(reservationDetails.getStartDate());
-            reservation.setEndDate(reservationDetails.getEndDate());
-            reservationService.saveReservation(reservation);
-            return ResponseEntity.ok(reservation);
-        } else {
+    public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
+        Reservation existingReservation = reservationService.getReservationById(id);
+        if (reservation == null) {
             return ResponseEntity.notFound().build();
         }
+        existingReservation.setClient(reservation.getClient());
+        existingReservation.setCar(reservation.getCar());
+        existingReservation.setStartDate(reservation.getStartDate());
+        existingReservation.setEndDate(reservation.getEndDate());
+        Reservation updatedReservation = reservationService.saveReservation(reservation);
+        return ResponseEntity.ok(updatedReservation);
     }
 
     // Delete a reservation
