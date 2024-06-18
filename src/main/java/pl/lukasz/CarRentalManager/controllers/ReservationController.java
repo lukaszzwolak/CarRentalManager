@@ -23,7 +23,7 @@ public class ReservationController {
     }
 
     // Get reservation by ID
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservationById(@PathVariable Long id) {
         Reservation reservation = reservationService.getReservationById(id);
         if (reservation == null) {
