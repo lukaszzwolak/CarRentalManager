@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wypożyczalnia samochodowa - Panel klienta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .car-list {
+            margin-bottom: 20px;
+        }
+        .car-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .car-item .details {
+            flex: 1;
+        }
+        .car-item .actions {
+            display: flex;
+            align-items: center;
+        }
+        .reservation-form {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .invoice-list {
+            margin-bottom: 20px;
+        }
+        .invoice-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-item .details {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Panel klienta - Wypożyczalnia samochodowa</h1>
+
+    <!-- Lista samochodów -->
+    <div class="car-list">
+        <h2>Dostępne samochody</h2>
+        <div id="car-list-container"></div>
+    </div>
+
+    <!-- Formularz rezerwacji -->
+    <div class="reservation-form">
+        <h2>Złóż rezerwację</h2>
+        <form id="reservation-form">
+            <label for="carId">Wybierz samochód:</label>
+            <select id="carId" name="carId"></select><br><br>
+            <label for="startDate">Data rozpoczęcia:</label>
+            <input type="date" id="startDate" name="startDate"><br><br>
+            <label for="endDate">Data zakończenia:</label>
+            <input type="date" id="endDate" name="endDate"><br><br>
+            <button type="submit">Złóż rezerwację</button>
+        </form>
+    </div>
+
+    <!-- Lista faktur -->
+    <div class="invoice-list">
+        <h2>Moje faktury</h2>
+        <div id="invoice-list-container"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Funkcja do pobierania listy samochodów
+        function fetchCars() {
+            fetch('/cars')
+                .then(response => response.json())
+                .then(cars => {
+                    const carListContainer = document.getElementById('car-list-container');
+                    carListContainer.innerHTML = '';
+                    cars.forEach(car => {
+                        const carItem = document.createElement('div');
+                        carItem.classList.add('car-item');
+                        carItem.innerHTML = `
+                                <div class="details">
+                                    <strong>${car.brand} ${car.model}</strong><br>
+                                    Numer rejestracyjny: ${car.registrationNumber}<br>
+                                    Status: ${car.status}
+                                </div>
+                                <div class="actions">
+                                    <button onclick="reserveCar(${car.id})">Zarezerwuj</button>
+                                </div>
+                            `;
+                        carListContainer.appendChild(carItem);
+                    });
+                })
+                .catch(error => console.error('Błąd podczas pobierania listy samochodów:', error));
+        }
+
+        // Funkcja do składania rezerwacji
+        function reserveCar(carId) {
+            const reservationForm = document.getElementById('reservation-form');
+            const formData = new FormData(reservationForm);
+            const reservationData = {
+                carId: carId,
+                startDate: formData.get('startDate'),
+                endDate: formData.get('endDate')
+            };
+
+            fetch('/reservations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reservationData)
+            })
+                .then(response => response.json())
+                .then(reservation => {
+                    alert('Rezerwacja została pomyślnie złożona.');
+                    fetchInvoices(); // Odśwież listę faktur po złożeniu rezerwacji
+                })
+                .catch(error => console.error('Błąd podczas składania rezerwacji:', error));
+        }
+
+        // Funkcja do pobierania listy faktur
+        function fetchInvoices() {
+            fetch('/invoices')
+                .then(response => response.json())
+                .then(invoices => {
+                    const invoiceListContainer = document.getElementById('invoice-list-container');
+                    invoiceListContainer.innerHTML = '';
+                    invoices.forEach(invoice => {
+                        const invoiceItem = document.createElement('div');
+                        invoiceItem.classList.add('invoice-item');
+                        invoiceItem.innerHTML = `
+                                <div class="details">
+                                    Faktura nr ${invoice.id}<br>
+                                    Kwota: ${invoice.amount}<br>
+                                    Data wystawienia: ${invoice.issueDate}<br>
+                                    Status: ${invoice.status}
+                                </div>
+                            `;
+                        invoiceListContainer.appendChild(invoiceItem);
+                    });
+                })
+                .catch(error => console.error('Błąd podczas pobierania listy faktur:', error));
+        }
+
+        // Inicjalne pobranie danych po załadowaniu strony
+        fetchCars();
+        fetchInvoices();
+
+        // Obsługa formularza rezerwacji
+        const reservationForm = document.getElementById('reservation-form');
+        reservationForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            reserveCar(reservationForm.carId.value);
+        });
+    });
+</script>
+</body>
+</html>

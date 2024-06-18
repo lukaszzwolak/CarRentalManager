@@ -2,6 +2,7 @@ package pl.lukasz.CarRentalManager.entities;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 public class Invoice {
@@ -19,6 +20,8 @@ public class Invoice {
     private Car car;
 
     private BigDecimal amount;
+    private LocalDate issueDate;
+    private String status; // np zaplacone, niezaplacone
 
     public Long getId() {
         return id;
@@ -50,5 +53,21 @@ public class Invoice {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

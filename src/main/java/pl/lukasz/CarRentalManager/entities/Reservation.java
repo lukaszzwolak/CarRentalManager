@@ -20,8 +20,9 @@ public class Reservation {
     private Car car;
 
     private LocalDate startDate;
-
     private LocalDate endDate;
+    private String status; //zaakceptowane, odrzucone, zakonczone
+
 
     public Long getId() {
         return id;
@@ -61,5 +62,13 @@ public class Reservation {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

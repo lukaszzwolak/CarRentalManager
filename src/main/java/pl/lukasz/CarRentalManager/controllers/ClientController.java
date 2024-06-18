@@ -3,8 +3,8 @@ package pl.lukasz.CarRentalManager.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.lukasz.CarRentalManager.entities.Client;
-import pl.lukasz.CarRentalManager.services.ClientService;
+import pl.lukasz.CarRentalManager.entities.*;
+import pl.lukasz.CarRentalManager.services.*;
 
 import java.util.List;
 
