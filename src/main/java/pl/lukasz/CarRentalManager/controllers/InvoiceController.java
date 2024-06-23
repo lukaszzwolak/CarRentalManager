@@ -1,68 +1,65 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.lukasz.CarRentalManager.entities.Invoice;
+import pl.lukasz.CarRentalManager.services.ClientService;
+import pl.lukasz.CarRentalManager.services.CarService;
 import pl.lukasz.CarRentalManager.services.InvoiceService;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/invoice")
 public class InvoiceController {
-
     @Autowired
     private InvoiceService invoiceService;
 
-    // Get all invoices
-    @GetMapping
-    public List<Invoice> getAllInvoices() {
-        return invoiceService.getAllInvoices();
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private CarService carService;
+
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("invoices", invoiceService.getAllInvoices());
+        return "invoiceDirectory/invoice-list";
     }
 
-    // Get invoice by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
+        return "invoiceDirectory/invoice-add";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute Invoice invoice) {
+        invoiceService.saveInvoice(invoice);
+        return "redirect:/invoice/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
         Invoice invoice = invoiceService.getInvoiceById(id);
-        if (invoice != null) {
-            return ResponseEntity.ok(invoice);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        model.addAttribute("invoice", invoice);
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
+        return "invoiceDirectory/invoice-edit";
     }
 
-    // Create a new invoice
-    @PostMapping
-    public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice) {
-        Invoice savedInvoice = invoiceService.saveInvoice(invoice);
-        return ResponseEntity.ok(savedInvoice);
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Long id, Model model) {
+        Invoice invoice = invoiceService.getInvoiceById(id);
+        model.addAttribute("invoice", invoice);
+        return "invoiceDirectory/invoice-remove";
     }
 
-    // Update an invoice
-    @PutMapping("/{id}")
-    public ResponseEntity<Invoice> updateInvoice(@PathVariable Long id, @RequestBody Invoice invoice) {
-        Invoice existingInvoice = invoiceService.getInvoiceById(id);
-        if (existingInvoice != null) {
-            existingInvoice.setClient(invoice.getClient());
-            existingInvoice.setCar(invoice.getCar());
-            existingInvoice.setAmount(invoice.getAmount());
-            Invoice updatedInvoice = invoiceService.saveInvoice(existingInvoice);
-            return ResponseEntity.ok(updatedInvoice);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Delete an invoice
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
-        Invoice existingInvoice = invoiceService.getInvoiceById(id);
-        if (existingInvoice != null) {
-            invoiceService.deleteInvoiceById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/remove")
+    public String remove(@ModelAttribute Invoice invoice) {
+        invoiceService.deleteInvoiceById(invoice.getId());
+        return "redirect:/invoice/list";
     }
 }

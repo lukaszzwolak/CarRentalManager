@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit employee</title>
+</head>
+<body>
+<form action="#" th:action="@{employee/edit}" th:object="${employee}" method="post">
+    <label>ID: </label>
+    <input type="text" th:field="*{id}" readonly /><br />
+    <label>Name: </label>
+    <input type="text" th:field="*{nameEmployee}" required /><br />
+    <label>Position: </label>
+    <input type="text" th:field="*{position}" required /><br />
+    <label>Email: </label>
+    <input type="email" th:field="*{email}" required /><br />
+    <label>Phone Number: </label>
+    <input type="text" th:field="*{phoneNumber}" required /><br />
+    <input type="submit" />
+</form>
+</body>
+</html>

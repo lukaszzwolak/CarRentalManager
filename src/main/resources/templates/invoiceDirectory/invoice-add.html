@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Invoice</title>
+</head>
+<body>
+<form action="#" th:action="@{add}" th:object="${invoice}" method="post">
+    <label>Client: </label>
+    <select th:field="*{client}" required>
+        <option th:each="client : ${clients}" th:value="${client}" th:text="${client.nameClient}"></option>
+    </select><br />
+    <label>Car: </label>
+    <select th:field="*{car}" required>
+        <option th:each="car : ${cars}" th:value="${car}" th:text="${car.brand} ${car.model}"></option>
+    </select><br />
+    <label>Amount: </label>
+    <input type="number" step="0.01" th:field="*{amount}" required /><br />
+    <label>Issue Date: </label>
+    <input type="date" th:field="*{issueDate}" required /><br />
+    <label>Status: </label>
+    <select th:field="*{status}" required>
+        <option th:value="Paid">Paid</option>
+        <option th:value="Unpaid">Unpaid</option>
+    </select><br />
+    <input type="submit" value="Add Invoice" />
+</form>
+</body>
+</html>

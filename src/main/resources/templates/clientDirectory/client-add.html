@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add client</title>
+</head>
+<body>
+<form action="#" th:action="@{add}" th:object="${client}" method="post">
+    <label>Name: </label>
+    <input type="text" th:field="*{nameClient}" required /><br />
+    <label>Email: </label>
+    <input type="email" th:field="*{email}" required /><br />
+    <label>Phone Number: </label>
+    <input type="text" th:field="*{phoneNumber}" required /><br />
+    <input type="submit" />
+</form>
+</body>
+</html>

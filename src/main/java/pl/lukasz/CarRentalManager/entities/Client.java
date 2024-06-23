@@ -2,7 +2,6 @@ package pl.lukasz.CarRentalManager.entities;
 
 import jakarta.persistence.*;
 
-
 @Entity
 public class Client {
     @Id

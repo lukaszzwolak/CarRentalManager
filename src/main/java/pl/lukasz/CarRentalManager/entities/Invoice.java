@@ -24,7 +24,7 @@ public class Invoice {
     private Status status; // np zaplacone, niezaplacone
 
     public Invoice() {
-        status = Status.Available;
+        status = Status.Paid;
     }
 
     public Long getId() {
