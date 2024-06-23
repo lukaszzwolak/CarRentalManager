@@ -1,64 +1,59 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.lukasz.CarRentalManager.entities.*;
-import pl.lukasz.CarRentalManager.services.*;
+import pl.lukasz.CarRentalManager.entities.Client;
+import pl.lukasz.CarRentalManager.services.ClientService;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/client")
 public class ClientController {
-
     @Autowired
-    private ClientService clientService;
+    private ClientService service;
 
-    @GetMapping
-    public List<Client> getAllClients() {
-        return clientService.getAllClients();
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("clients", service.getAllClients());
+        return "clientDirectory/client-list";
     }
 
-    // Get client by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        Client client = clientService.getClientById(id);
-        if (client != null) {
-            return ResponseEntity.ok(client);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("client", new Client());
+        return "clientDirectory/client-add";
     }
 
-    // Create a new client
-    @PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client) {
-        Client savedClient = clientService.saveClient(client);
-        return ResponseEntity.ok(savedClient);
+    @PostMapping("/add")
+    public String add(Client client) {
+        service.saveClient(client);
+        return "redirect:/client/list";
     }
 
-    // Update a client
-    @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
-        Client existingClient = clientService.getClientById(id);
-        if (existingClient != null) {
-            existingClient.setNameClient(client.getNameClient());
-            Client updatedClient = clientService.saveClient(existingClient);
-            return ResponseEntity.ok(updatedClient);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Client client = service.getClientById(id);
+        model.addAttribute("client", client);
+        return "clientDirectory/client-edit";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
-        Client client = clientService.getClientById(id);
-        if (client != null) {
-            clientService.deleteClientById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/edit")
+    public String edit(Client client) {
+        service.saveClient(client);
+        return "redirect:/client/list";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Long id, Model model) {
+        Client client = service.getClientById(id);
+        model.addAttribute("client", client);
+        return "clientDirectory/client-remove";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Client client) {
+        service.deleteClientById(client.getId());
+        return "redirect:/client/list";
     }
 }

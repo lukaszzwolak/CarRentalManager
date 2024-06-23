@@ -11,7 +11,11 @@ public class Car {
     private String model;
     private String brand;
     private String registrationNumber;
-    private String status; //np dostepne, wynajete
+    private Status status;
+
+    public Car() {
+        status = Status.Available;
+    }
 
     public Long getId() {
         return id;
@@ -45,11 +49,11 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

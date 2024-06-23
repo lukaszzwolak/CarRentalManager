@@ -21,8 +21,11 @@ public class Reservation {
 
     private LocalDate startDate;
     private LocalDate endDate;
-    private String status; //zaakceptowane, odrzucone, zakonczone
+    private Status status; //zaakceptowane, odrzucone
 
+    public Reservation() {
+        status = Status.Available;
+    }
 
     public Long getId() {
         return id;
@@ -64,11 +67,11 @@ public class Reservation {
         this.endDate = endDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

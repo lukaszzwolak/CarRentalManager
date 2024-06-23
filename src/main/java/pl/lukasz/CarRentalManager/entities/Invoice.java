@@ -21,7 +21,11 @@ public class Invoice {
 
     private BigDecimal amount;
     private LocalDate issueDate;
-    private String status; // np zaplacone, niezaplacone
+    private Status status; // np zaplacone, niezaplacone
+
+    public Invoice() {
+        status = Status.Available;
+    }
 
     public Long getId() {
         return id;
@@ -63,11 +67,11 @@ public class Invoice {
         this.issueDate = issueDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

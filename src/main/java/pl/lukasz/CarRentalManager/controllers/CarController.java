@@ -1,65 +1,59 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.*;
+import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 import pl.lukasz.CarRentalManager.entities.*;
 import pl.lukasz.CarRentalManager.services.CarService;
 
-import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/car")
 public class CarController {
-    //wstrzykiwanie instancji carservice
     @Autowired
-    private CarService carService;
+    private CarService service;
 
-    @GetMapping
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("cars", service.getAllCars());
+        return "car-list";
     }
 
-    // Get car by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Car> getCarById(@PathVariable Long id) {
-        Car car = carService.getCarById(id);
-        if (car != null) {
-            return ResponseEntity.ok(car);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("car", new Car());
+        return "car-add";
     }
 
-    // Create a new car
-    @PostMapping
-    public ResponseEntity<Car> createCar(@RequestBody Car car) {
-        Car savedCar = carService.saveCar(car);
-        return ResponseEntity.ok(savedCar);
+    @PostMapping("/add")
+    public String add(Car car) {
+        service.saveCar(car);
+        return "redirect:/car/list";
+    }
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Car car = service.getCarById(id);
+        model.addAttribute("car", car);
+        return "car-edit";
     }
 
-    // Update a car
-    @PutMapping("/{id}")
-    public ResponseEntity<Car> updateCar(@PathVariable Long id, @RequestBody Car car) {
-        Car existingCar = carService.getCarById(id);
-        if (existingCar != null) {
-            existingCar.setModel(car.getModel());
-            Car updatedCar = carService.saveCar(existingCar);
-            return ResponseEntity.ok(updatedCar);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/edit")
+    public String edit(Car car) {
+        service.saveCar(car);
+        return "redirect:/car/list";
     }
 
-    // Delete a car
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
-        Car car = carService.getCarById(id);
-        if (car != null) {
-            carService.deleteCar(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Long id, Model model) {
+        Car car = service.getCarById(id);
+        model.addAttribute("car", car);
+        return "car-remove";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Car car) {
+        service.deleteCar(car.getId());
+        return "redirect:/car/list";
     }
 }
