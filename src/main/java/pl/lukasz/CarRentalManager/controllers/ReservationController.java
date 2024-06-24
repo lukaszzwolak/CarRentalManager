@@ -1,68 +1,60 @@
 package pl.lukasz.CarRentalManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.lukasz.CarRentalManager.entities.*;
-import pl.lukasz.CarRentalManager.services.*;
+import pl.lukasz.CarRentalManager.entities.Reservation;
+import pl.lukasz.CarRentalManager.services.ReservationService;
 
-import java.util.List;
-
-
-@RestController
+@Controller
 @RequestMapping("/reservation")
 public class ReservationController {
 
     @Autowired
-    private ReservationService reservationService;
+    private ReservationService service;
 
-    // Get all reservations
-    @GetMapping
-    public List<Reservation> getAllReservations() {
-        return reservationService.getAllReservations();
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("reservations", service.getAllReservations());
+        return "reservationDirectory/reservation-list";
     }
 
-    // Get reservation by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Reservation> getReservationById(@PathVariable Long id) {
-        Reservation reservation = reservationService.getReservationById(id);
-        if (reservation == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(reservation);
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("reservation", new Reservation());
+        return "reservationDirectory/reservation-add";
     }
 
-    // Create a new reservation
-    @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        Reservation savedReservation = reservationService.saveReservation(reservation);
-        return ResponseEntity.ok(savedReservation);
+    @PostMapping("/add")
+    public String add(Reservation reservation) {
+        service.saveReservation(reservation);
+        return "redirect:/reservation/list";
     }
 
-    // Update a reservation
-    @PutMapping("/{id}")
-    public ResponseEntity<Reservation> updateReservation(@PathVariable Long id, @RequestBody Reservation reservation) {
-        Reservation existingReservation = reservationService.getReservationById(id);
-        if (reservation == null) {
-            return ResponseEntity.notFound().build();
-        }
-        existingReservation.setClient(reservation.getClient());
-        existingReservation.setCar(reservation.getCar());
-        existingReservation.setStartDate(reservation.getStartDate());
-        existingReservation.setEndDate(reservation.getEndDate());
-        Reservation updatedReservation = reservationService.saveReservation(reservation);
-        return ResponseEntity.ok(updatedReservation);
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Reservation reservation = service.getReservationById(id);
+        model.addAttribute("reservation", reservation);
+        return "reservationDirectory/reservation-edit";
     }
 
-    // Delete a reservation
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
-        Reservation reservation = reservationService.getReservationById(id);
-        if (reservation != null) {
-            reservationService.deleteReservationById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/edit")
+    public String edit(Reservation reservation) {
+        service.saveReservation(reservation);
+        return "redirect:/reservation/list";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Long id, Model model) {
+        Reservation reservation = service.getReservationById(id);
+        model.addAttribute("reservation", reservation);
+        return "reservationDirectory/reservation-remove";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Reservation reservation) {
+        service.deleteReservationById(reservation.getId());
+        return "redirect:/reservation/list";
     }
 }

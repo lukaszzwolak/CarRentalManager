@@ -2,22 +2,22 @@
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Invoice</title>
+    <title>Add Reservation</title>
 </head>
 <body>
-<form action="#" th:action="@{add}" th:object="${invoice}" method="post">
+<form action="#" th:action="@{add}" th:object="${reservation}" method="post">
     <label>Client: </label>
     <input type="text" th:field="*{client.id}" required /><br />
     <label>Car: </label>
     <input type="text" th:field="*{car.id}" required /><br />
-    <label>Amount: </label>
-    <input type="number" step="0.01" th:field="*{amount}" required /><br />
-    <label>Issue Date: </label>
-    <input type="date" th:field="*{issueDate}" required /><br />
+    <label>Start Date: </label>
+    <input type="date" th:field="*{startDate}" required /><br />
+    <label>End Date: </label>
+    <input type="date" th:field="*{endDate}" required /><br />
     <label>Status: </label>
     <select th:field="*{status}">
-        <option th:value="Paid">Paid</option>
-        <option th:value="Unpaid">Unpaid</option>
+        <option th:value="Accepted">Accepted</option>
+        <option th:value="Rejected">Rejected</option>
     </select><br />
     <input type="submit" />
 </form>

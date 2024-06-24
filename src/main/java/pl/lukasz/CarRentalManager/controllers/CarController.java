@@ -17,13 +17,13 @@ public class CarController {
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("cars", service.getAllCars());
-        return "car-list";
+        return "carDirectory/car-list";
     }
 
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("car", new Car());
-        return "car-add";
+        return "carDirectory/car-add";
     }
 
     @PostMapping("/add")
@@ -35,7 +35,7 @@ public class CarController {
     public String edit(@PathVariable("id") Long id, Model model) {
         Car car = service.getCarById(id);
         model.addAttribute("car", car);
-        return "car-edit";
+        return "carDirectory/car-edit";
     }
 
     @PostMapping("/edit")
@@ -48,7 +48,7 @@ public class CarController {
     public String remove(@PathVariable("id") Long id, Model model) {
         Car car = service.getCarById(id);
         model.addAttribute("car", car);
-        return "car-remove";
+        return "carDirectory/car-remove";
     }
 
     @PostMapping("/remove")

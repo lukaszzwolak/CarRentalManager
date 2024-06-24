@@ -5,15 +5,20 @@
     <title>Remove Invoice</title>
 </head>
 <body>
-<form action="#" th:action="@{remove}" th:object="${invoice}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    <p>Are you sure you want to remove this invoice?</p>
-    <p>ID: <span th:text="${invoice.id}"></span></p>
-    <p>Client: <span th:text="${invoice.client.nameClient}"></span></p>
-    <p>Car: <span th:text="${invoice.car.brand} + ' ' + ${invoice.car.model}"></span></p>
-    <p>Amount: <span th:text="${invoice.amount}"></span></p>
-    <p>Issue Date: <span th:text="${invoice.issueDate}"></span></p>
-    <p>Status: <span th:text="${invoice.status}"></span></p>
+<p>Are you sure you want to remove the following invoice?</p>
+<form action="#" th:action="@{/invoice/remove}" th:object="${invoice}" method="post">
+    <label>ID: </label>
+    <span th:text="${invoice.id}"></span><br />
+    <label>Client: </label>
+    <span th:text="${invoice.client.nameClient}"></span><br />
+    <label>Car: </label>
+    <span th:text="${invoice.car.model}"></span><br />
+    <label>Amount: </label>
+    <span th:text="${invoice.amount}"></span><br />
+    <label>Issue Date: </label>
+    <span th:text="${invoice.issueDate}"></span><br />
+    <label>Status: </label>
+    <span th:text="${invoice.status}"></span><br />
     <input type="submit" value="Remove" />
 </form>
 </body>
