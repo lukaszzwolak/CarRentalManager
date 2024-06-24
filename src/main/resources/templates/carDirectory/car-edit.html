@@ -15,7 +15,10 @@
     <label>Registration: </label>
     <input type="text" th:field="*{registrationNumber}" required /><br />
     <label>Status: </label>
-    <input type="text" th:field="*{status}" required /><br />
+    <select th:field="*{status}">
+        <option th:value="Available">Available</option>
+        <option th:value="Rent">Rent</option>
+    </select><br />
     <input type="submit" value="Save" />
 </form>
 </body>

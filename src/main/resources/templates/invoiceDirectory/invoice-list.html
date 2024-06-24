@@ -53,7 +53,7 @@
         <td>
             <a th:href="@{/invoice/edit/{id}(id=${invoice.id})}">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a onclick="return confirm('Are you sure?');" th:href="@{/invoice/remove/{id}(id=${invoice.id})}">Remove</a>
+            <a th:href="@{/invoice/remove/{id}(id=${invoice.id})}">Remove</a>
         </td>
     </tr>
     </tbody>
