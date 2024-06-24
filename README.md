@@ -2,6 +2,11 @@
 
 A comprehensive system for managing cars, clients, employees, invoices, and reservations.
 
+Small application made as a graduation project for Java: Web Developer course by CodersLab Warsaw. My objectives:
+solve real life issue (however trivial it will be)
+communicate with external APIs
+utilize knowledge from the course and learn some new technologies/classes/interfaces
+
 ## Table of Contents
 - [Features](#features)
 - [Technologies](#technologies)
@@ -22,6 +27,7 @@ A comprehensive system for managing cars, clients, employees, invoices, and rese
 - Spring Boot
 - Thymeleaf
 - HTML
+- MySQL
 
 ## Setup
 
