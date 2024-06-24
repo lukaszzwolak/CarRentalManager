@@ -10,6 +10,7 @@ import pl.lukasz.CarRentalManager.services.*;
 @Controller
 @RequestMapping("/client")
 public class ClientController {
+
     @Autowired
     private ClientService service;
 
@@ -45,15 +46,8 @@ public class ClientController {
     }
 
     @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id, Model model) {
-        Client client = service.getClientById(id);
-        model.addAttribute("client", client);
-        return "clientDirectory/client-remove";
-    }
-
-    @PostMapping("/remove")
-    public String remove(Client client) {
-        service.deleteClientById(client.getId());
-        return "redirect:/client/list";
+    public String remove(@PathVariable("id") Long id) {
+        service.deleteClientById(id);
+        return "redirect/client/list";
     }
 }

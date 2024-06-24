@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.lukasz.CarRentalManager.entities.*;
 import pl.lukasz.CarRentalManager.services.*;
 
-
 @Controller
 @RequestMapping("/car")
 public class CarController {
+
     @Autowired
     private CarService service;
 
@@ -31,6 +31,7 @@ public class CarController {
         service.saveCar(car);
         return "redirect:/car/list";
     }
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         Car car = service.getCarById(id);
@@ -45,15 +46,8 @@ public class CarController {
     }
 
     @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id, Model model) {
-        Car car = service.getCarById(id);
-        model.addAttribute("car", car);
-        return "carDirectory/car-remove";
-    }
-
-    @PostMapping("/remove")
-    public String remove(Car car) {
-        service.deleteCar(car.getId());
+    public String remove(@PathVariable("id") Long id) {
+        service.deleteCar(id);
         return "redirect:/car/list";
     }
 }

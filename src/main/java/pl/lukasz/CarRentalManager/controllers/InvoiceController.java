@@ -46,15 +46,8 @@ public class InvoiceController {
     }
 
     @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id, Model model) {
-        Invoice invoice = service.getInvoiceById(id);
-        model.addAttribute("invoice", invoice);
-        return "invoiceDirectory/invoice-remove";
-    }
-
-    @PostMapping("/remove")
-    public String remove(Invoice invoice) {
-        service.deleteInvoiceById(invoice.getId());
+    public String remove(@PathVariable("id") Long id) {
+        service.deleteInvoiceById(id);
         return "redirect:/invoice/list";
     }
 }

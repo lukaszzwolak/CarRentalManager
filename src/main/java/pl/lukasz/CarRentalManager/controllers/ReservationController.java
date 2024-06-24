@@ -46,15 +46,8 @@ public class ReservationController {
     }
 
     @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id, Model model) {
-        Reservation reservation = service.getReservationById(id);
-        model.addAttribute("reservation", reservation);
-        return "reservationDirectory/reservation-remove";
-    }
-
-    @PostMapping("/remove")
-    public String remove(Reservation reservation) {
-        service.deleteReservationById(reservation.getId());
+    public String remove(@PathVariable("id") Long id) {
+        service.deleteReservationById(id);
         return "redirect:/reservation/list";
     }
 }
