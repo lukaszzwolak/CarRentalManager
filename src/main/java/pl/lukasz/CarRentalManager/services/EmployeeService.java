@@ -1,9 +1,9 @@
 package pl.lukasz.CarRentalManager.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pl.lukasz.CarRentalManager.entities.Employee;
-import pl.lukasz.CarRentalManager.repositories.EmployeeRepository;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import pl.lukasz.CarRentalManager.entities.*;
+import pl.lukasz.CarRentalManager.repositories.*;
 
 import java.util.List;
 

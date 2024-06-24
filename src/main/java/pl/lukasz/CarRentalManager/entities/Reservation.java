@@ -2,7 +2,7 @@ package pl.lukasz.CarRentalManager.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.*;
 
 @Entity
 public class Reservation {
