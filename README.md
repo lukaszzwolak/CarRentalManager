@@ -22,6 +22,7 @@ A comprehensive system for managing cars, clients, employees, invoices, and rese
 - Spring Boot
 - Thymeleaf
 - HTML
+- MySQL
 
 ## Setup
 
