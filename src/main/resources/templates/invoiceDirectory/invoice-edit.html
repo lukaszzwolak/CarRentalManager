@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit Invoice</title>
 </head>
+
 <body>
 <form action="#" th:action="@{/invoice/edit}" th:object="${invoice}" method="post">
     <label>ID: </label>
     <input type="text" th:field="*{id}" readonly /><br />
     <label>Client: </label>
-    <input type="text" th:field="*{client.id}" required /><br />
+    <select th:field="*{client.id}" required>
+        <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nameClient}" />
+    </select><br />
     <label>Car: </label>
-    <input type="text" th:field="*{car.id}" required /><br />
+    <select th:field="*{car.id}" required>
+        <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.displayName}" />
+    </select><br />
     <label>Amount: </label>
     <input type="number" step="0.01" th:field="*{amount}" required /><br />
     <label>Issue Date: </label>

@@ -48,6 +48,6 @@ public class ClientController {
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Long id) {
         service.deleteClientById(id);
-        return "redirect/client/list";
+        return "redirect:/client/list";
     }
 }
