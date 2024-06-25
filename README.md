@@ -79,3 +79,6 @@ utilize knowledge from the course and learn some new technologies/classes/interf
    
 ## Database schema
 ![carrentdb](https://github.com/lukaszzwolak/CarRentalManager/assets/145567355/ceadb7a2-3767-47ff-9fce-f67297d57609)
+
+Contact
+Please add suggestions or contact me if you like my project.
