@@ -50,7 +50,7 @@
         <td>
             <a th:href="@{/car/edit/{id}(id=${car.id})}">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/car/remove/{id}(id=${car.id})}">Remove</a>
+            <a onclick="return confirm('Are you sure?');" th:href="@{/car/remove/{id}(id=${car.id})}">Remove</a>
         </td>
     </tr>
     </tbody>

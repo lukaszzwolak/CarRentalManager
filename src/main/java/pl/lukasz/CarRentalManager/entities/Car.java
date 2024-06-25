@@ -56,5 +56,9 @@ public class Car {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public String getDisplayName() {
+        return brand + " " + model + "(" + registrationNumber + ")";
+    }
 }
 

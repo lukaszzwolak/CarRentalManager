@@ -25,7 +25,7 @@ public class CarController {
         model.addAttribute("car", new Car());
         return "carDirectory/car-add";
     }
-
+//redirect(przekierowanie)
     @PostMapping("/add")
     public String add(Car car) {
         service.saveCar(car);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.lukasz.CarRentalManager.entities.*;
 import pl.lukasz.CarRentalManager.services.*;
 
+
 @Controller
 @RequestMapping("/invoice")
 public class InvoiceController {
