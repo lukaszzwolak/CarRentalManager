@@ -1,6 +1,7 @@
 package pl.lukasz.CarRentalManager.entities;
 
 import jakarta.persistence.*;
+
 import java.math.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -75,6 +76,7 @@ public class Invoice {
     public void setStatus(Status status) {
         this.status = status;
     }
+
     //("yyyy-MM-dd")-uniwersalny format
     //dotyczy tylko dat
     //sprring nie odczytuje LocalDate dlatego jest to

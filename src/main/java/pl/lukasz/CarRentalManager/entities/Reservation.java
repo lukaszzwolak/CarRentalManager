@@ -12,11 +12,11 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-   // @JoinColumn(name = "car_id")
+    // @JoinColumn(name = "car_id")
     private Client client;
 
     @ManyToOne
-  //  @JoinColumn(name = "car_id")
+    //  @JoinColumn(name = "car_id")
     private Car car;
 
     private LocalDate startDate;

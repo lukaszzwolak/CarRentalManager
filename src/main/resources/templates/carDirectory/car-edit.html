@@ -6,20 +6,18 @@
 </head>
 <body>
 <form action="#" th:action="@{/car/edit}" th:object="${car}" method="post">
-    <label>ID: </label>
-    <input type="text" th:field="*{id}" readonly /><br />
     <label>Brand: </label>
-    <input type="text" th:field="*{brand}" required /><br />
+    <input type="text" th:field="*{brand}" required/><br/>
     <label>Model: </label>
-    <input type="text" th:field="*{model}" required /><br />
+    <input type="text" th:field="*{model}" required/><br/>
     <label>Registration: </label>
-    <input type="text" th:field="*{registrationNumber}" required /><br />
+    <input type="text" th:field="*{registrationNumber}" required/><br/>
     <label>Status: </label>
     <select th:field="*{status}">
         <option th:value="Available">Available</option>
         <option th:value="Rent">Rent</option>
-    </select><br />
-    <input type="submit" value="Save" />
+    </select><br/>
+    <input type="submit" value="Save"/>
 </form>
 </body>
 </html>

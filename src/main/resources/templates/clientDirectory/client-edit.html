@@ -6,15 +6,13 @@
 </head>
 <body>
 <form action="#" th:action="@{/client/edit}" th:object="${client}" method="post">
-    <label>ID: </label>
-    <input type="text" th:field="*{id}" readonly /><br />
     <label>Name: </label>
-    <input type="text" th:field="*{nameClient}" required /><br />
+    <input type="text" th:field="*{nameClient}" required/><br/>
     <label>Email: </label>
-    <input type="email" th:field="*{email}" required /><br />
+    <input type="email" th:field="*{email}" required/><br/>
     <label>Phone Number: </label>
-    <input type="text" th:field="*{phoneNumber}" required /><br />
-    <input type="submit" value="Save" />
+    <input type="text" th:field="*{phoneNumber}" required/><br/>
+    <input type="submit" value="Save"/>
 </form>
 </body>
 </html>

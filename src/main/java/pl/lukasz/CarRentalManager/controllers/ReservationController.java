@@ -14,6 +14,12 @@ public class ReservationController {
     @Autowired
     private ReservationService service;
 
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private CarService carService;
+
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("reservations", service.getAllReservations());
@@ -23,6 +29,8 @@ public class ReservationController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("reservation", new Reservation());
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
         return "reservationDirectory/reservation-add";
     }
 
@@ -36,6 +44,8 @@ public class ReservationController {
     public String edit(@PathVariable("id") Long id, Model model) {
         Reservation reservation = service.getReservationById(id);
         model.addAttribute("reservation", reservation);
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
         return "reservationDirectory/reservation-edit";
     }
 

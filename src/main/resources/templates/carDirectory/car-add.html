@@ -5,14 +5,14 @@
     <title>Add car</title>
 </head>
 <body>
-    <form action="#" th:action="@{add}" th:object="${car}" method="post">
-        <label>Brand: </label>
-        <input type="text" th:field="*{brand}" required /><br />
-        <label>Model: </label>
-        <input type="text" th:field="*{model}" required /><br />
-        <label>Registration: </label>
-        <input type="text" th:field="*{registrationNumber}" required /><br />
-        <input type="submit" />
-    </form>
+<form action="#" th:action="@{add}" th:object="${car}" method="post">
+    <label>Brand: </label>
+    <input type="text" th:field="*{brand}" required/><br/>
+    <label>Model: </label>
+    <input type="text" th:field="*{model}" required/><br/>
+    <label>Registration: </label>
+    <input type="text" th:field="*{registrationNumber}" required/><br/>
+    <input type="submit"/>
+</form>
 </body>
 </html>
