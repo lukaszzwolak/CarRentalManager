@@ -75,7 +75,7 @@ utilize knowledge from the course and learn some new technologies/classes/interf
 2. Create a new branch (`git checkout -b feature/your-feature`)
 3. Commit your changes (`git commit -m 'Add some feature'`)
 4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+6. Open a Pull Request
+   
+## Database schema
+![carrentdb](https://github.com/lukaszzwolak/CarRentalManager/assets/145567355/ceadb7a2-3767-47ff-9fce-f67297d57609)
