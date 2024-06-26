@@ -14,11 +14,9 @@ public class Invoice {
     private Long id;
 
     @ManyToOne
-    //@JoinColumn(name = "client_id")
     private Client client;
 
     @ManyToOne
-    //@JoinColumn(name = "car_id")
     private Car car;
 
     private BigDecimal amount;

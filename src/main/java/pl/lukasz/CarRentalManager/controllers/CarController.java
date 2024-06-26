@@ -1,9 +1,12 @@
 package pl.lukasz.CarRentalManager.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.lukasz.CarRentalManager.entities.*;
 import pl.lukasz.CarRentalManager.services.*;
 
@@ -28,8 +31,12 @@ public class CarController {
 
     //redirect(przekierowanie)
     @PostMapping("/add")
-    public String add(Car car) {
+    public String add(@Valid Car car, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "carDirectory/car-add";
+        }
         service.saveCar(car);
+        redirectAttributes.addFlashAttribute("successMessage", "Car added successfully");
         return "redirect:/car/list";
     }
 
@@ -41,14 +48,19 @@ public class CarController {
     }
 
     @PostMapping("/edit")
-    public String edit(Car car) {
+    public String edit(@Valid Car car, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "carDirectory/car-edit";
+        }
         service.saveCar(car);
+        redirectAttributes.addFlashAttribute("successMessage", "Car updated successfully");
         return "redirect:/car/list";
     }
 
     @GetMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
+    public String remove(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         service.deleteCar(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Car deleted successfully");
         return "redirect:/car/list";
     }
 }
