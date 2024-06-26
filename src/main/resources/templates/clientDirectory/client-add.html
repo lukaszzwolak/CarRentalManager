@@ -5,6 +5,8 @@
     <title>Add client</title>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <form action="#" th:action="@{add}" th:object="${client}" method="post">
     <label>Name: </label>
     <input type="text" th:field="*{nameClient}" required/><br/>
@@ -14,5 +16,7 @@
     <input type="text" th:field="*{phoneNumber}" required/><br/>
     <input type="submit"/>
 </form>
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

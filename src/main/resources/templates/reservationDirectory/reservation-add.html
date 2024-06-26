@@ -5,6 +5,8 @@
     <title>Add Reservation</title>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <form action="#" th:action="@{add}" th:object="${reservation}" method="post">
     <label>Client: </label>
     <select th:field="*{client.id}" required>
@@ -25,5 +27,7 @@
     </select><br/>
     <input type="submit"/>
 </form>
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

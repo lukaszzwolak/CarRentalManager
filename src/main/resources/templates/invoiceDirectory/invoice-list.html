@@ -33,6 +33,8 @@
     </style>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <a href="/invoice/add">Add</a>
 <table>
     <thead>
@@ -62,5 +64,7 @@
     </tr>
     </tbody>
 </table>
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
