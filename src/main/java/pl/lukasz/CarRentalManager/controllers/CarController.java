@@ -30,12 +30,15 @@ public class CarController {
     }
 
     //redirect(przekierowanie)
+    //BindingResult interfejs Springa(przechowuje wyniki wlidacji obiektu @Valid)
+    //RedirectAttributes interfejs Springa(przekazuje atrybuty flash)
     @PostMapping("/add")
     public String add(@Valid Car car, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "carDirectory/car-add";
         }
         service.saveCar(car);
+        //addFlashAttribute dodaje atrybut flash o nazwie successMessage z wartością Car added successfully
         redirectAttributes.addFlashAttribute("successMessage", "Car added successfully");
         return "redirect:/car/list";
     }

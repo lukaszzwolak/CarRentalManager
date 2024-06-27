@@ -5,8 +5,9 @@
     <title>Edit client</title>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
-
+<a href="javascript:history.back()" style="text-decoration: none; color: #007BFF; margin-top: 20px; display: block;">
+    &lt; Return
+</a>
 <form action="#" th:action="@{/client/edit}" th:object="${client}" method="post">
     <input type="hidden" th:field="*{id}" />
     <label>Name: </label>

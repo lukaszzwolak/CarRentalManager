@@ -15,10 +15,34 @@
             align-items: center;
         }
 
+        .content {
+            padding-top: 80px; /* To ensure the content is not hidden under the fixed navbar */
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-family: 'Courier New', Courier, monospace; /* Decorative font */
+            font-size: 36px; /* Font size */
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow */
+            color: #333; /* Text color */
+            margin-left: 20px; /* Adjust left margin */
+            flex-grow: 1; /* Ensure the title takes up available space */
+            text-align: center; /* Center align the text */
+        }
+
         .add-link {
             display: inline-flex;
             align-items: center;
-            margin: 20px 0;
             padding: 10px 20px;
             background-color: #007BFF;
             color: white;
@@ -41,7 +65,6 @@
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 100%;
-            max-width: 1000px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -80,37 +103,42 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<a href="/car/add" class="add-link">
-    <span class="icon">&#43;</span>
-    Add Car
-</a>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Brand</th>
-        <th>Model</th>
-        <th>Registration</th>
-        <th>Status</th>
-        <th></th>
-    </tr>
-    </thead>
+<div class="content">
+    <div class="header">
+        <h1 class="title">Cars</h1>
+        <a href="/car/add" class="add-link">
+            <span class="icon">&#43;</span>
+            Add Car
+        </a>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Registration</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
 
-    <tbody>
-    <tr th:each="car : ${cars}">
-        <td th:text="${car.id}"></td>
-        <td th:text="${car.brand}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.registrationNumber}"></td>
-        <td th:text="${car.status}"></td>
-        <td>
-            <a th:href="@{/car/edit/{id}(id=${car.id})}">Edit</a>
-            &nbsp;&nbsp;&nbsp;
-            <a onclick="return confirm('Are you sure?');" th:href="@{/car/remove/{id}(id=${car.id})}">Remove</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <tbody>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.registrationNumber}"></td>
+            <td th:text="${car.status}"></td>
+            <td>
+                <a th:href="@{/car/edit/{id}(id=${car.id})}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a onclick="return confirm('Are you sure?');" th:href="@{/car/remove/{id}(id=${car.id})}">Remove</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <div th:replace="fragments/footer :: footer"></div>
 </body>
