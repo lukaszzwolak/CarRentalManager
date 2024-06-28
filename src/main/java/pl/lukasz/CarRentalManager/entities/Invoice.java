@@ -22,6 +22,7 @@ public class Invoice {
     private BigDecimal amount;
     private LocalDate issueDate;
     private Status status;
+    private boolean isArchived;
 
     public Invoice() {
         status = Status.Paid;
@@ -84,5 +85,13 @@ public class Invoice {
 
     public void setIssueDateDisplayValue(String value) {
         this.issueDate = LocalDate.parse(value);
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
     }
 }

@@ -13,10 +13,6 @@ public class InvoiceService {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    public List<Invoice> getAllInvoices() {
-        return invoiceRepository.findAll();
-    }
-
     public Invoice getInvoiceById(Long id) {
         return invoiceRepository.findById(id).orElse(null);
     }
@@ -27,5 +23,17 @@ public class InvoiceService {
 
     public void deleteInvoiceById(Long id) {
         invoiceRepository.deleteById(id);
+    }
+
+    public List<Invoice> getAllNotArchivedInvoices() {
+        return invoiceRepository.findAllNotArchivedInvoices();
+    }
+
+    public List<Invoice> getAllArchivedInvoices() {
+        return invoiceRepository.findAllArchivedInvoices();
+    }
+
+    public Invoice archiveInvoice(Invoice invoice) {
+        return invoiceRepository.archive(invoice);
     }
 }

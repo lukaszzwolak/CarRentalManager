@@ -2,7 +2,7 @@
 <html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Invoices</title>
+    <title>Archived invoices</title>
     <style>
         table {
             font-family: Arial, Helvetica, sans-serif;
@@ -35,7 +35,8 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<a href="/invoice/add">Add</a>
+<h1>Archived invoices</h1>
+
 <table>
     <thead>
     <tr>
@@ -45,7 +46,6 @@
         <th>Amount</th>
         <th>Issue Date</th>
         <th>Status</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -56,14 +56,6 @@
         <td th:text="${invoice.amount}"></td>
         <td th:text="${invoice.issueDate}"></td>
         <td th:text="${invoice.status}"></td>
-
-        <td>
-            <a th:href="@{/invoice/edit/{id}(id=${invoice.id})}">Edit</a>
-            &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/invoice/remove/{id}(id=${invoice.id})}">Remove</a>
-            &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/invoice/archive/{id}(id=${invoice.id})}">Archive</a>
-        </td>
     </tr>
     </tbody>
 </table>
