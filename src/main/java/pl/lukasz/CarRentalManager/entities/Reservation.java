@@ -19,7 +19,7 @@ public class Reservation {
 
     private LocalDate startDate;
     private LocalDate endDate;
-    private Status status; //zaakceptowane, odrzucone
+    private Status status;
 
     public Reservation() {
         status = Status.Available;

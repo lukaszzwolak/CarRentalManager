@@ -1,7 +1,7 @@
 package pl.lukasz.CarRentalManager.entities;
 
 public enum Status {
-    //to inty ktore mozna przypisac tu i uzywac je zamiast pisac 0, 1 w kodzie
+    //to inty ktore mozna przypisac tu i uzywac
     Available,
     Rent,
     Paid,

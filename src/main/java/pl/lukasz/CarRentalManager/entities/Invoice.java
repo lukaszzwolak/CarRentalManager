@@ -21,7 +21,7 @@ public class Invoice {
 
     private BigDecimal amount;
     private LocalDate issueDate;
-    private Status status; // np zaplacone, niezaplacone
+    private Status status;
 
     public Invoice() {
         status = Status.Paid;
@@ -77,7 +77,7 @@ public class Invoice {
 
     //("yyyy-MM-dd")-uniwersalny format
     //dotyczy tylko dat
-    //sprring nie odczytuje LocalDate dlatego jest to
+    //sprring nie odczytuje LocalDate
     public String getIssueDateDisplayValue() {
         return issueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }

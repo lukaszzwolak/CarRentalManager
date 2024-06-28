@@ -21,16 +21,13 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
-    @NotBlank(message = "Model is required")
-    @Size(min = 2, message = "Model must be at least 2 characters")
+    @Size(min = 2, message = "The model must have 2 characters")
     private String model;
 
-    @NotBlank(message = "Brand is required")
-    @Size(min = 2, message = "Brand must be at least 2 characters")
+    @Size(min = 2, message = "The model must have 2 characters")
     private String brand;
 
-    @NotBlank(message = "Registration number is required")
-    @Pattern(regexp="[A-Z]{2}-[0-9]{4,6}", message = "Invalid registration number format")
+    @Pattern(regexp="[A-Z]{2}-[0-9]{4,6}", message = "Registration must have 2 uppercase letters and 4 to 6 digits")
     private String registrationNumber;
 
     @NotNull(message = "Status is required")
