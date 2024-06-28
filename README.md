@@ -73,7 +73,7 @@ utilize knowledge from the course and learn some new technologies/classes/interf
 6. Open a Pull Request
    
 ## Database schema
-![carrentdb](https://github.com/lukaszzwolak/CarRentalManager/assets/145567355/ceadb7a2-3767-47ff-9fce-f67297d57609)
+![carrentdb](https://github.com/lukaszzwolak/CarRentalManager/assets/145567355/43493217-a8c0-496c-8a5a-e7d8f6cc3ab3)
 
 ## Contact
 Please add suggestions or contact me if you like my project.
