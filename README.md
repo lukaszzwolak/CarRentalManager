@@ -28,6 +28,7 @@ utilize knowledge from the course and learn some new technologies/classes/interf
 - Thymeleaf
 - HTML
 - MySQL
+- JPA & Hibernate
 
 ## Setup
 
@@ -63,12 +64,6 @@ utilize knowledge from the course and learn some new technologies/classes/interf
 - **Edit Car**: Navigate to `/car/edit/{id}` where `{id}` is the ID of the car you want to edit.
 - **View Cars**: Navigate to `/car/list` to see a list of all cars.
 - **Delete Car**: Navigate to `/car/remove/{id}` where `{id}` is the ID of the car you want to delete.
-
-### Managing Clients
-- **Add Client**: Navigate to `/client/add` and fill in the required fields to add a new client.
-- **Edit Client**: Navigate to `/client/edit/{id}` where `{id}` is the ID of the client you want to edit.
-- **View Clients**: Navigate to `/client/list` to see a list of all clients.
-- **Delete Client**: Navigate to `/client/remove/{id}` where `{id}` is the ID of the client you want to delete.
 
 ## Contributing
 1. Fork the repository
