@@ -15,10 +15,10 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Invoice> invoices;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Reservation> reservations;
 
     @Size(min = 2, message = "The model must have 2 characters")

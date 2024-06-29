@@ -8,15 +8,15 @@ import java.util.List;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
-    default List<Invoice> findAllArchivedInvoices() {
-        return findAll().stream()
-                .filter(i -> i.isArchived())
-                .toList();
-    }
 
     default List<Invoice> findAllNotArchivedInvoices() {
         return findAll().stream()
                 .filter(i -> !i.isArchived())
+                .toList();
+    }
+    default List<Invoice> findAllArchivedInvoices() {
+        return findAll().stream()
+                .filter(i -> i.isArchived())
                 .toList();
     }
 
